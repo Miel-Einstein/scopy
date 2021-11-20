@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="row bg-dark mt-1 mb-4 shadow">
+        <div class="card col-sm-6 shadow bg-dark">
+        <canvas id="myChart" width="200" height="100"></canvas>
+        </div>
+        <div class="col-sm-3">
+             <br>
+            <div class="card card-center shadow mb-3" id="appointmentheader">
+             <div class="card-header" >
+                 <h5>Total  Subscribed </h5>
+             </div>
+                 <div class="card-body" >
+                     <center><h3>{{users}}</h3></center>
+                 </div>
+
+
+             </div>
+         </div>
+          <div class="col-sm-3" >
+            <br>
+            <div class="card card-center shadow mb-3" id="message">
+                <div class="card-header">
+                    <h5> Number of posts </h5>
+                </div>
+                <div class="card-body">
+                    <center><h3>{{posts}}</h3></center>
+                </div>
+
+                    </div>
+
+         
+            </div>
+</div>
+
+
+
+<table class="table table-hover col-sm-6 bg-dark text-white">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Posts</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+{% for sub in uses  %}
+
+  <tbody>
+    <tr>
+      <th scope="row">{{sub.id}}</th>
+      <td>{{sub.username}}</td>
+     {% for post in postsubs%}
+      <td>{{post.user.id}}</td>
+      {% endfor %}
+  
+      <td>{{sub.email}}</td>
+    </tr>
+   
+  </tbody>
+{% endfor %}  
+</table>
+</div>
+   </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js" integrity="sha512-b3xr4frvDIeyC3gqR1/iOi6T+m3pLlQyXNuvn5FiRrrKiMUJK3du2QqZbCywH6JxS5EOfW0DY0M6WwdXFbCBLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+{% block jquery %}
+ var endpoint='http://127.0.0.1:8000/api/data/'
+ var defaultData=[]
+ var customersDjango=parseInt('{{customers}}')*230
+ var labels=[]
+ console.log(customersDjango)
+$.ajax({
+    method:"GET",
+    url:endpoint,
+    success:function(data){
+      labels=data.labels
+      defaultData=data.default
+      setChart()
+    },
+    error:function(error_data){
+         console.log("error")   
+         console.log(error_data)   
+        
+    }
+ })
+
+ function setChart(){
+      var ctx = document.getElementById('myChart');
+      var myChart = new Chart(ctx, {
+      type: 'polarArea',
+      data: {
+        labels:labels ,
+        datasets: [{
+            label: '# of Votes',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+})
+ };      
+   
+{% endblock %}
+
+</script>
+
+{% endblock  %}

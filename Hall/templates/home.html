@@ -1,0 +1,62 @@
+  {% extends 'base.html' %}
+
+
+  {% block content%}
+ <header  class="vid">
+<video left="0" right="0" width="1120px" class="im_c card shadow p-4 mt-1 col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12 float-md-end mb-3 ms-md-3 p-4 " height="500px" controls>
+  <source src="{{video.video.url}}" type="video/mp4" left="0" right="0" width="1120px" class="im_c card shadow p-4 mt-1 col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12 float-md-end mb-3 ms-md-3 p-4 " height="500px">
+  
+</video>
+<div class="overlay">
+  <h2>This is the last video posted by {{video.user.username}} </h2>
+  <a  class="btn btn-primary" type="submit" href="{% url 'get-videos' %}" form-control mt-2 style="width:120px">more videos</a>
+</div>
+</header>
+
+  <div class="row mt-4 shadow  p-2">
+    {% for post in posts %}
+       <div class="card mb-2 m-1 shadow" style="width: 18rem;">
+ <a href="{% url 'post-detail' post.id %}"> <img class="card-img-top" style="height:21rem;" src="{{post.image.url}}" alt="Card image cap"></a>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title|truncatewords:2}}</h5>
+    <p class="card-text">{{post.content|truncatechars:50}}</p>
+    <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary">View Post</a>
+  </div>
+</div>
+ {% endfor %}
+
+<div class="clearfix mt-5 ">
+  <img src="https://cdn.pixabay.com/photo/2021/10/29/15/05/floral-6752135__480.jpg" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 float-md-end mb-3 ms-md-3 p-4 shadow" alt="...">
+   
+   <center><h3 style="font-family:Snell Roundhand, cursive">title</h3></center>
+  <span style="font-family:Snell Roundhand, cursive">
+    A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+  </span>
+  <p>
+    A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+  </p>
+
+  <p>
+    As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with some actual content in here, rather than just this boring placeholder text that goes on and on, but actually conveys no tangible information at. It simply takes up space and should not really be read.
+  </p>
+
+  <p>
+    And yet, here you are, still persevering in reading this placeholder text, hoping for some more insights, or some hidden easter egg of content. A joke, perhaps. Unfortunately, there's none of that here.
+  </p>
+
+
+ </div>
+<script>
+      var form_fields = document.getElementsByTagName("input")
+
+       for (var field in form_fields){	
+		  	form_fields[field].className += ' form-control me-2 '
+		  	form_fields[field].placeholder += 'Search'
+        form_fields[field].autocomplete +='off'
+       
+	  	}
+
+</script>
+    
+  </div>
+   {% endblock %}

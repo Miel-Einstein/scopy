@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %} 
+<div class="row mt-5">
+  <div class="col-lg-6 shadow p-4">
+    <h1 class="h">Login</h1>
+   <form method="POST",class="form-control" action="">
+       {%csrf_token%}
+     <div class="input-group">
+          <div class="input-group-append">
+        <i class="fas fa-user-circle"></i>  
+        </div>
+        <input  type="username" class="form-control shadow" name="username">
+      </div>
+      <div class="input-group">
+          <div class="input-group-append">
+             <i class="fas fa-key"></i>
+           </div>
+        <input type="password" class="form-control shadow" name="password">
+  </div>
+    <p class="b"> <button type="submit" class="btn btn-outline-success ">Login</button>
+         If you don't have an account then <a class="" href="{% url 'register' %}" >register here</a></p>
+         
+    </form>
+  </div>
+  <div class="col-lg-6 shadow p-4">
+      <img src="https://images.rtl.fr/~c/2000v2000/rtl/www/1316886-un-renard-illustration.jpeg" class="img-fluid img-responsive">
+
+  </div>
+</div>
+
+{% endblock  %}

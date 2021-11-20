@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+<style>
+  
+</style>
+<div class="container p-3 ">
+<div class="card">
+  <div class="card-header">
+  <center>
+		<video id="video" class="family-post-img col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"  onseeking="CallAction1()" onseeked="CallAction2()" controls width="650">
+		 <source src="{{video.video.url}}" type="video/mp4" >   
+     <track src="/captions_file.vtt" label="English" kind="captions" srclang="en-us" default >
+     <track src="/French_captions_file.vtt" label="French" kind="subtitles" srclang="fr" >
+    </video>
+  </center>   
+  
+        <div class="container">
+        <div class="row">
+         <div class="col=lg-6">
+            <div class="bg-white">
+            </div>
+         </div>
+        </div>
+        </div>
+
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{video.title}}</h5>
+        <p class="card-text">{{video.content|safe}}</p><br>
+         <p class="card-text" > Author :<a type="submit" href="{% url 'profile' video.user.id %}">{{video.user}}</a></p><br>
+    <a href="{% url 'home'%}" class="btn btn-primary">Go Back to home</a>
+    <a href="#" class="btn btn-info ml-5"> likes</a>
+    <a href="#" class="btn btn-info"> dislikes</a>
+</br>
+
+  </div>
+    <form method="post" class="mb-5" enctype="multipart/form-data" >
+    {% csrf_token %}
+   <div class="row">
+      <div class="col-md-12 pt-2">          
+           <label for="exampleInputPassword1" class="form-label">Write a Comment</label> 
+           <input type="text" name="comment" class="form-control t shadow" placeholder="Enter comment">
+     </div>
+      </div>
+               <button type="submit" class="btn btn-primary form-control">Create</button>
+
+    </form>
+  </div>
+
+<script>
+ 
+  </script>
+</div>
+ {% endblock %}

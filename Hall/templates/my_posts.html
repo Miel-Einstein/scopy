@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+</center><h1 class="mt-4 mb-2  " style="margin-left:400px;text-shadow: 3px 4px #ff0000">Your Posts</h1></center>
+
+<section class="mt-5 p-5">
+<div class="container">
+<table class="table  table-hover table-striped ">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">N*</th>
+      <th scope="col">title</th>
+      <th scope="col">created_at</th>
+      <th scope="col">action</th>
+      <th scope="col">status</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in posts %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{post.title}}</td>
+      <td>{{post.created_at}}</td>
+      <td>
+           <a href="{% url 'post-detail' post.id %}" class="btn btn-success">Read</a>
+           <a href="{% url 'update-post' post.id %}" class="btn btn-warning">Update</a>
+           <a href="{% url 'delete-post' post.id %}" class="btn btn-danger">delete</a>
+      </td>
+            <td>{{post.status}}</td>
+    </tr>
+    {% endfor %}
+   
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

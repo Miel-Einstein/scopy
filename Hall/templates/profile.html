@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+  *{
+      padding:0;
+      margin:0;
+  }
+  *{
+    font-family:Snell Roundhand, cursive;
+}
+  .card {
+    border: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+
+}
+.lig{
+    display: block;
+    width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: 1px solid blue;
+  background-color: yellow;
+}
+
+.typing-text{
+    text-shadow: -3px 4px 2px rgba(150, 150, 150, 1);
+}
+
+.card:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+  </style>
+    <title></title>
+  </head>
+  <body >
+   <nav class="navbar navbar-custom sticky-top  navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home'%}">Home <span class="sr-only">(current)</span></a>
+      {% comment %} </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> {% endcomment %}
+      <li class="nav-item">
+        <a class="nav-link " href="#">this is Author {{user.username}}'s profile </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+</br>
+<div>
+{% load static %}
+<div class="raw col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12 float-md-end mb-3 ms-md-3 p-4 " >
+        <br/>       
+
+
+        <div class="d-flex ">
+
+     {% for pic in photo %}
+
+        {% if pic.photo_de_profil %}
+           <div><img src="{{pic.photo_de_profil.url}}" class=" card rounded-circle" width="100px"></div>
+        {% else %}
+           <div><img src="{% url 'img/blank.png' %}" class=" card rounded-circle" width="100px"></div>
+
+        {% endif %}
+
+        {% endfor %}
+                        <div class="">
+
+        </br>
+            <table class="table  table-hover">
+                        <tr>
+                            <td>Name :</td>
+                            <th>{{user.username}}</th>
+                        </tr>
+                        <tr>
+                            <td><center>Surname: </center></td>
+
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Email :</td>
+
+                            <th>{{user.email}}</th>
+                        </tr>
+
+
+            </table>
+            </div>
+ <div class="col">
+        <div class="col-sm-12" >
+            <br>
+            <div class="card card-center " id="message">
+                <div class="card-header">
+                    <h5>total subscribed</h5>
+                </div>
+                <div class="card-body">
+                    <center><h3></h3></center>
+                </div>
+
+            </div>
+
+        </div>
+
+            </div>
+<div class="col">
+        <div class="col-sm-12" >
+            <br>
+            <div class="card card-center " id="message">
+                <div class="card-header">
+                    <h5>total posts</h5>
+                </div>
+                <div class="card-body">
+                    <center><h3>{{postcount}}</h3></center>
+                </div>
+
+            </div>
+
+
+            </div>
+            </div>
+
+
+
+
+</div>
+
+
+</div>
+ <br/>
+        
+      <center><h1 class="typing-text"></h1></center>
+ <br/>
+ <br/>
+ <br/>
+
+    {% for post in posts %}
+      <div class="row ml-2 m-0" >
+
+       <div class="card mb-2 m-1 shadow" style="width: 18rem;">
+ <a href="{% url 'post-detail' post.id %}"> <img class="card-img-top" style="height:21rem;" src="{{post.image.url}}" alt="Card image cap"></a>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title|truncatewords:2}}</h5>
+    <p class="card-text">{{post.content|truncatechars:50}}</p>
+    <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary">View Post</a>
+  </div>
+</div>
+ {% endfor %}      
+
+{% comment %} <div class="row" style="background-color:#7abecc">
+    <form method="GET" >
+        <br>
+         {{my_Filters.form}}
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+
+    </form>
+
+    {% comment %} <table class="table  table-bordered table-hover table-striped">
+        <tr class="text-white">
+            <th><center>id</center></th>
+            <th ><center>Dottoressa/Dottore</center></th>
+            <th><center>City</center></th>
+            <th><center>Picture</center></th>
+            <th><center>Profil</center></th>
+        </tr>
+
+    
+
+
+              <tr class="">
+
+                  <th><center></center></th>
+                  <th><center></center></th>
+                  <th><center></center></th>
+                  
+                  <td><center><img  class="rounded-circle "  width="50" height="50" class="hoover-primary"></center></td>
+                  <td><center><img src="" class="rounded-circle "  width="50" height="50" ></center></td>
+                  <td><center><a class="btn btn-outline-success" href="">Profil</a></center></td>
+
+
+        
+    </table> {% endcomment %}
+
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js" integrity="sha512-zKaK6G2LZC5YZTX0vKmD7xOwd1zrEEMal4zlTf5Ved/A1RrnW+qt8pWDfo7oz+xeChECS/P9dv6EDwwPwelFfQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+    <script>
+    var type= new Typed('.typing-text',{
+        strings:["those are author {{user.username}}'s posts","Don't forget to like ","and comment","those are author {{user.username}}'s posts"],
+        typeSpeed:100,
+        loop:true,
+    })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

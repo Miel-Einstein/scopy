@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+<div class="container p-3 mt-3">
+<div class="card">
+  <div class="card-header">
+    <center>
+
+        <img src="{{post.image.url}}" class="family-post-img col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 im" style="width:1050px">
+      </center>
+
+        <div class="container">
+        <div class="row">
+         <div class="col=lg-6">
+            <div class="bg-white">
+            </div>
+         </div>
+        </div>
+        </div>
+
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.content|safe}}</p><br>
+         <a class="card-text" href="{% url 'profile' post.user.id %}"> Author :<h4>{{post.user}}</h4></a><br>
+    <a href="{% url 'home'%}" class="btn btn-primary">Go Back to home</a>
+    <a href="#" class="btn btn-info ml-5"> likes</a>
+    <a href="#" class="btn btn-info"> dislikes</a>
+</br>
+
+  </div>
+  <form method="post" class="mb-5" id="post-form" enctype="multipart/form-data" >
+    {% csrf_token %}
+   <div class="row">
+      <div class="col-md-12 pt-2">          
+           <label for="exampleInputPassword1" class="form-label">Write a Comment</label> 
+           <input type="text" name="text" class="form-control  t shadow" placeholder="Enter comment" autocomplete="off">
+     </div>
+      </div>
+               <button type="submit" class="btn btn-primary form-control">Create</button>
+
+    </form>
+</div> <h3></h3>
+<p></p>
+  </div>
+           {% comment %} url:'/post-detail'$this.attr('post.id'),  {% endcomment %}
+
+ </div>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+ <script>
+  $(document).on('submit','#post-form',function(e){
+     e.preventDefault();
+
+     $.ajax({
+       type:'POST',
+       url:'/post-detail' $this.attr('post.id'),
+       data:{
+         text:$('text').val(),
+         csrfmiddlewaretoken:$('input[text=csrfmiddlewaretoken]').val(),
+       },
+       success:function (data){
+          $('h3').html(data);
+       }
+     });
+  });
+   </script>
+ {% endblock %}

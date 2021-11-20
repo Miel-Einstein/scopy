@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+  <div class="row shadow p-1 mt-5">
+         {% comment %} <div class="video-container">
+            <div class="color-overlay"></div>
+            <video autoplay loop muted class="" style="width:1110px;height:400px">
+                <source src="{% static  "video/l'amour j.mp4" %}" type="video/mp4">
+            </video>
+        </div> {% endcomment %}
+  <div class="col-lg-6 p-4 shadow" >
+  <h1 class="h">Register</h1>
+  <form method="POST" action="">
+     {%csrf_token%}
+         <div class="input-group">
+          <div class="input-group-append">
+        <i class="fas fa-user-circle"></i>    
+               </div>
+              {{form.username}}
+         </div>
+         <div class="input-group">
+          <div class="input-group-append">
+            <i class="fas fa-envelope"></i>
+
+           </div>
+              {{form.email}}
+         </div>
+         <div class="input-group">
+          <div class="input-group-append">
+             <i class="fas fa-key"></i>
+           </div>
+              {{form.password1}}
+         </div>
+         <div class="input-group">
+          <div class="input-group-append">
+            <i class="fas fa-key"></i>
+           </div>
+              {{form.password2}}
+         </div>
+         
+        <p class="b"> <button type="submit" class="btn btn-outline-success ">Registrer</button>
+         If you already have an account then <a class="" href="{% url 'login' %}" >login here</a></p>
+         
+   </form>
+    
+
+  </div>
+
+  <div class="col-lg-6 p-4 ml-1 shadow">
+    <img src="https://img.pixers.pics/pho_wat(s3:700/FO/41/74/85/2/700_FO4174852_4978457bc3cdd8746103c3938cf17807.jpg,700,507,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,457,jpg)/stickers-purple-cosmos-flower-in-the-gardens.jpg" class="img-fluid img-responsive">
+  </div>
+ </div>
+ <script>
+   	 var form_fields = document.getElementsByTagName('input')
+      form_fields[2].placeholder='Username..';
+      form_fields[3].placeholder='Email..';
+		  form_fields[4].placeholder='Enter password...';
+	   	form_fields[5].placeholder='Re-enter Password...';     	              
+      for (var field in form_fields){	
+			form_fields[field].className += ' form-control shadow'
+		}
+ </script>
+
+
+{% endblock  %}

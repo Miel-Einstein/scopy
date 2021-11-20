@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+<div class="container  ">
+  <a href="{% url 'get-videos' %}" class="btn btn-warning mt-2 mb-5">view your Videos</a>
+   <form method="post" class="mb-5" enctype="multipart/form-data" >
+    {% csrf_token %}
+   <div class="row">
+      <div class="col-md-12">          
+               {{form}}              
+         <br/>
+         <button type="submit" class="btn btn-primary form-control">Update</button>
+
+    </div>
+ 
+   </div>
+   </form> 
+   <script>
+  	 var form_fields = document.getElementsByTagName("input")      
+     var form_field2=document.getElementsByTagName("select")
+     var form_field3=document.getElementsByTagName("textarea")
+
+      for (var field in form_fields){	
+			form_fields[field].className += ' form-control shadow'
+		};
+
+      for (var field2 in form_field2){
+          form_field2[field2].className+='form-control shadow'
+      };
+
+      for (var field3 in form_field3){
+          form_field3[field3].className+="form-control shadow"
+      }  
+   </script>   
+</div>
+  
+   
+{% endblock %}

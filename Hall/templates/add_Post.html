@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+<div class="container  ">
+    <a href="{% url 'my-posts' %}" class="btn btn-warning mt-2 mb-5">view your posts</a>
+   <form method="post" class="mb-5" enctype="multipart/form-data" >
+    {% csrf_token %}
+   <div class="row">
+      <div class="col-md-12 pt-2">          
+           <label for="exampleInputPassword1" class="form-label">Enter Blog</label> 
+           <input type="text" name="title" class="form-control" placeholder="Enter title">
+           <input type="text" name="content" class="form-control t" placeholder="Enter content">
+            <div class="input-group">
+               {{form.category}}
+            </div> 
+         <input type="file" name="image" class="form-control" placeholder="">
+         <br/>
+         <button type="submit" class="btn btn-primary form-control">Create</button>
+
+    </div>
+   </div>
+   </form>
+
+   <script>
+var form_fields = document.getElementsByTagName('select')
+form_fields[0].placeholder="Category...";
+for (var field in form_fields){	
+			form_fields[field].className += ' form-control shadow mb-2'
+		}
+   </script>
+</div>
+
+{% endblock %}

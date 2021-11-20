@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container mt-3 ">
+        <div class="row">
+            <div class="col-md-3">
+              
+                <div class="card">
+                    <div class="card-header">
+                        Categories
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="">All</a>
+                        </li>
+                        {% for category in categories %}
+                        <li class=" list-group-item">
+                            <a href="">
+                                {{category.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+
+
+                        <a href="{% url 'upload-video' %}" class="btn btn-dark btn-block btn-sm m-1">Add Videos</a>
+                        <a href="" class="btn btn-dark btn-block btn-sm m-1">------</a>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+
+                    {% for video in videos %}
+                    <div class="col-md-4">
+                        <div class="card my-2" >
+                     <a href="{% url 'video-detail' video.id %}"> <img class="image-thumbail shadow"  src="{{video.image.url}}" alt=""></a>
+
+                            <div class="card-body " style="inline">
+                                <span>title: {{video.title}}</span>
+                            </div>
+                            <a href="{% url 'video-detail' video.id %}" class="btn btn-outline-dark btn-sm m-1">watch now </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h3>No Videos...</h3>
+                    {% endfor %}
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>   
+{% endblock  %}

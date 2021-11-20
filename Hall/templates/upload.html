@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container  ">
+    <a href="{% url 'your-videos' %}" class="btn btn-warning mt-2 mb-5">view your videos</a>
+<form method="post" class="mb-5" enctype="multipart/form-data" >
+ {% csrf_token %}
+  <div class="row">
+  <div class="col-md-12 pt-2 ">               
+  <label class="form-label ">Enter video information</label> 
+  <input class="form-control shadow" type="text" name="title" placeholder="Enter title">
+  <label class="form-label ">a description of your video will help us </label> 
+  <input class="form-control t shadow" type="textarea" name="content" placeholder="Enter description">
+  <label class="form-label ">Select an image as a thumbnail</label> 
+  <input class="form-control mb-1 shadow" type="file" name="image"  placeholder="">
+  <label class="form-label ">Select video</label>   
+  <input class="form-control shadow" type="file" name="video"  placeholder="Select video">
+   
+   {{form}}
+
+
+  <br/>
+ <button type="submit" class="btn btn-primary form-control">Create</button>
+</div>
+   </div>
+</form>
+{% endblock  %}
